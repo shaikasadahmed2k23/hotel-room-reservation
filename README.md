@@ -122,36 +122,43 @@ Or just double-click `index.html` — it works instantly in any browser.
 
 > Hotel grid showing available, occupied, and just-booked rooms with live stats.
 
+<div align="center">
+
 <table>
   <tr>
-    <td align="center">
+    <td align="center" width="50%">
       <a href="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png">
-        <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="300"/>
+        <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="100%" style="max-width: 320px;" />
       </a>
-      <br>Fresh and Empty Grid
+      <br><sub><b>Fresh and Empty Grid</b></sub>
     </td>
-    <td align="center">
+
+    <td align="center" width="50%">
       <a href="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png">
-        <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="300"/>
+        <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="100%" style="max-width: 320px;" />
       </a>
-      <br>4 Rooms Booked
+      <br><sub><b>4 Rooms Booked</b></sub>
     </td>
   </tr>
+
   <tr>
-    <td align="center">
+    <td align="center" width="50%">
       <a href="screenshots/03__Randomized%20Grid.png">
-        <img src="screenshots/03__Randomized%20Grid.png" width="300"/>
+        <img src="screenshots/03__Randomized%20Grid.png" width="100%" style="max-width: 320px;" />
       </a>
-      <br>Randomized Grid
+      <br><sub><b>Randomized Grid</b></sub>
     </td>
-    <td align="center">
+
+    <td align="center" width="50%">
       <a href="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png">
-        <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="300"/>
+        <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="100%" style="max-width: 320px;" />
       </a>
-      <br>5 Rooms Booked in Randomized Grid
+      <br><sub><b>5 Rooms Booked in Randomized Grid</b></sub>
     </td>
   </tr>
 </table>
+
+</div>
 
 ## 📌 Example Scenario
 
