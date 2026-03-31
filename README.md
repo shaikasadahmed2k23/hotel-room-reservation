@@ -122,11 +122,36 @@ Or just double-click `index.html` — it works instantly in any browser.
 
 > Hotel grid showing available, occupied, and just-booked rooms with live stats.
 
-- ![Fresh and Empty Grid](screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png)
-- ![4 rooms booked](screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png)
-- ![Randomized Grid](screenshots/03__Randomized%20Grid.png)
-- ![5 rooms booked](screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png)
----
+<table>
+  <tr>
+    <td align="center">
+      <a href="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png">
+        <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="300"/>
+      </a>
+      <br>Fresh and Empty Grid
+    </td>
+    <td align="center">
+      <a href="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png">
+        <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="300"/>
+      </a>
+      <br>4 Rooms Booked
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="screenshots/03__Randomized%20Grid.png">
+        <img src="screenshots/03__Randomized%20Grid.png" width="300"/>
+      </a>
+      <br>Randomized Grid
+    </td>
+    <td align="center">
+      <a href="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png">
+        <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="300"/>
+      </a>
+      <br>5 Rooms Booked in Randomized Grid
+    </td>
+  </tr>
+</table>
 
 ## 📌 Example Scenario
 
