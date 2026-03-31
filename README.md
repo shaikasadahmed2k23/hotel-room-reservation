@@ -1,4 +1,4 @@
-# 🏨 Hotel Room Reservation System
+   # 🏨 Hotel Room Reservation System
 
 A smart, single-page hotel room reservation system built with pure HTML, CSS, and JavaScript. Dynamically allocates rooms based on optimal travel time calculations across 10 floors and 97 rooms.
 
@@ -122,43 +122,36 @@ Or just double-click `index.html` — it works instantly in any browser.
 
 > Hotel grid showing available, occupied, and just-booked rooms with live stats.
 
-<div align="center">
-
 <table>
   <tr>
-    <td align="center" width="50%">
+    <td align="center" style="padding-right: 30px;">
       <a href="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png">
-        <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="100%" style="max-width: 320px;" />
+        <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="300"/>
       </a>
-      <br><sub><b>Fresh and Empty Grid</b></sub>
+      <br>Fresh and Empty Grid
     </td>
-
-    <td align="center" width="50%">
+    <td align="center">
       <a href="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png">
-        <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="100%" style="max-width: 320px;" />
+        <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="300"/>
       </a>
-      <br><sub><b>4 Rooms Booked</b></sub>
+      <br>4 Rooms Booked
     </td>
   </tr>
-
   <tr>
-    <td align="center" width="50%">
+    <td align="center" style="padding-right: 30px;">
       <a href="screenshots/03__Randomized%20Grid.png">
-        <img src="screenshots/03__Randomized%20Grid.png" width="100%" style="max-width: 320px;" />
+        <img src="screenshots/03__Randomized%20Grid.png" width="300"/>
       </a>
-      <br><sub><b>Randomized Grid</b></sub>
+      <br>Randomized Grid
     </td>
-
-    <td align="center" width="50%">
+    <td align="center">
       <a href="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png">
-        <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="100%" style="max-width: 320px;" />
+        <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="300"/>
       </a>
-      <br><sub><b>5 Rooms Booked in Randomized Grid</b></sub>
+      <br>5 Rooms Booked in Randomized Grid
     </td>
   </tr>
 </table>
-
-</div>
 
 ## 📌 Example Scenario
 
