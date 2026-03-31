@@ -124,24 +124,33 @@ Or just double-click `index.html` — it works instantly in any browser.
 
 <p align="center">
 
-<a href="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" target="_blank">
-  <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="200" style="margin:5px"/>
+<a href="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" target="_blank" style="display:inline-block; text-align:center; margin:10px">
+  <img src="screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png" width="200" style="border-radius:8px; transition: transform 0.3s;"/>
+  <br><sub>Fresh & Empty Grid</sub>
 </a>
-<a href="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" target="_blank">
-  <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="200" style="margin:5px"/>
+
+<a href="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" target="_blank" style="display:inline-block; text-align:center; margin:10px">
+  <img src="screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png" width="200" style="border-radius:8px; transition: transform 0.3s;"/>
+  <br><sub>4 Rooms Booked</sub>
 </a>
-<a href="screenshots/03__Randomized%20Grid.png" target="_blank">
-  <img src="screenshots/03__Randomized%20Grid.png" width="200" style="margin:5px"/>
+
+<a href="screenshots/03__Randomized%20Grid.png" target="_blank" style="display:inline-block; text-align:center; margin:10px">
+  <img src="screenshots/03__Randomized%20Grid.png" width="200" style="border-radius:8px; transition: transform 0.3s;"/>
+  <br><sub>Randomized Grid</sub>
 </a>
-<a href="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" target="_blank">
-  <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="200" style="margin:5px"/>
+
+<a href="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" target="_blank" style="display:inline-block; text-align:center; margin:10px">
+  <img src="screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png" width="200" style="border-radius:8px; transition: transform 0.3s;"/>
+  <br><sub>5 Rooms Booked in Randomized Grid</sub>
 </a>
 
 </p>
 
-<p align="center">
-<strong>Fresh & Empty Grid</strong> &nbsp;&nbsp; | &nbsp;&nbsp; <strong>4 Rooms Booked</strong> &nbsp;&nbsp; | &nbsp;&nbsp; <strong>Randomized Grid</strong> &nbsp;&nbsp; | &nbsp;&nbsp; <strong>5 Rooms Booked in Randomized Grid</strong>
-</p>
+<style>
+  img:hover {
+    transform: scale(1.1);
+  }
+</style>>
 
 ## 📌 Example Scenario
 
