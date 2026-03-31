@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hotel Room Reservation</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0a0e1a;
+    --surface:   #111827;
+    --surface2:  #1a2236;
+    --border:    #1e2d45;
+    --accent:    #00d4aa;
+    --accent2:   #f59e0b;
+    --danger:    #ef4444;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --avail:     #1a2236;
+    --avail-border: #2a3a55;
+    --occ:       #1e3a5f;
+    --occ-text:  #93c5fd;
+    --booked:    #064e3b;
+    --booked-text:#6ee7b7;
+    --radius:    8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--accent), #00a88a);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .brand-name {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .brand-name span { color: var(--accent); }
+
+  .brand-sub {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+  }
+
+  .header-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid rgba(0,212,170,0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(0,212,170,0.06);
+  }
+
+  /* ── Controls ── */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .input-group input {
+    background: var(--surface);
+    border: none;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 130px;
+    outline: none;
+  }
+
+  .input-group input::placeholder { color: var(--muted); }
+
+  .input-group input::-webkit-inner-spin-button,
+  .input-group input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-book {
+    background: var(--accent);
+    color: #0a0e1a;
+    border-radius: 0;
+  }
+  .btn-book:hover { background: #00bfa0; }
+
+  .btn-random {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-random:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .btn-reset {
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-reset:hover { border-color: var(--danger); color: var(--danger); }
+
+  /* ── Toast ── */
+  .toast {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+    border-left: 3px solid;
+    display: none;
+    animation: slideIn 0.2s ease;
+  }
+  .toast.show { display: flex; align-items: center; gap: 10px; }
+  .toast.ok  { background: rgba(0,212,170,0.08); border-color: var(--accent); color: var(--accent); }
+  .toast.err { background: rgba(239,68,68,0.08); border-color: var(--danger); color: var(--danger); }
+  .toast.info{ background: rgba(245,158,11,0.08); border-color: var(--accent2); color: var(--accent2); }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 13px; height: 13px; border-radius: 3px; }
+
+  /* ── Building ── */
+  .building-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    overflow-x: auto;
+  }
+
+  .floor-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+  }
+  .floor-row:last-child { margin-bottom: 0; }
+
+  .floor-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 52px;
+    justify-content: flex-end;
+  }
+
+  .floor-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 26px;
+    text-align: right;
+  }
+
+  .lift-col {
+    width: 10px;
+    height: 30px;
+    background: linear-gradient(180deg, #2a3a55, #1a2236);
+    border-radius: 3px;
+    border: 1px solid #2a3a55;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .lift-col::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .rooms-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap;
+  }
+
+  .room {
+    width: 46px;
+    height: 34px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    cursor: default;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid transparent;
+    position: relative;
+    user-select: none;
+  }
+
+  .room.available {
+    background: var(--avail);
+    border-color: var(--avail-border);
+    color: var(--muted);
+  }
+
+  .room.occupied {
+    background: var(--occ);
+    border-color: #2a4a7f;
+    color: var(--occ-text);
+  }
+
+  .room.booked {
+    background: var(--booked);
+    border-color: #065f46;
+    color: var(--booked-text);
+    transform: scale(1.06);
+    box-shadow: 0 0 12px rgba(0,212,170,0.25);
+  }
+
+  .room.pad { opacity: 0; pointer-events: none; }
+
+  .room-check {
+    font-size: 8px;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    color: var(--accent);
+  }
+
+  /* ── Stats ── */
+  .stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .stat-card {
+    flex: 1 1 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Last booking info ── */
+  .booking-info {
+    background: var(--surface);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-top: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    display: none;
+  }
+
+  .booking-info.show { display: block; }
+  .booking-info strong { color: var(--accent); }
+
+  /* ── Occupancy bar ── */
+  .occ-bar-wrap { margin-top: 16px; }
+  .occ-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+  .occ-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .occ-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  @media (max-width: 600px) {
+    .room { width: 38px; height: 30px; font-size: 8px; }
+    .brand-name { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-icon">🏨</div>
+        <div>
+          <div class="brand-name">GRAND <span>ALGORITHMIA</span></div>
+          <div class="brand-sub">Smart Room Reservation System</div>
+        </div>
+      </div>
+      <div class="header-badge">97 ROOMS · 10 FLOORS</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="input-group">
+      <input type="number" id="roomCount" min="1" max="5" placeholder="No. of rooms (1–5)" />
+      <button class="btn btn-book" onclick="book()">BOOK</button>
+    </div>
+    <button class="btn btn-random" onclick="randomOccupancy()">⚄ Randomize</button>
+    <button class="btn btn-reset" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#1a2236;border:1px solid #2a3a55"></div>
+      Available
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#1e3a5f;border:1px solid #2a4a7f"></div>
+      Occupied
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#064e3b;border:1px solid #065f46"></div>
+      Just Booked
+    </div>
+  </div>
+
+  <!-- Building -->
+  <div class="building-wrap">
+    <div id="building"></div>
+  </div>
+
+  <!-- Last Booking Info -->
+  <div class="booking-info" id="bookingInfo"></div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-val" id="s-total" style="color:var(--text)">97</div>
+      <div class="stat-lbl">Total Rooms</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="s-avail" style="color:var(--accent)">97</div>
+      <div class="stat-lbl">Available</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="s-occ" style="color:var(--occ-text)">0</div>
+      <div class="stat-lbl">Occupied</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="s-pct" style="color:var(--accent2)">0%</div>
+      <div class="stat-lbl">Occupancy</div>
+    </div>
+  </div>
+
+  <!-- Occupancy bar -->
+  <div class="occ-bar-wrap">
+    <div class="occ-bar-label">
+      <span>Occupancy</span>
+      <span id="occ-pct-label">0 / 97</span>
+    </div>
+    <div class="occ-bar"><div class="occ-bar-fill" id="occBar" style="width:0%"></div></div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────────
+const FLOORS = 10;
+const roomsPerFloor = f => f === 10 ? 7 : 10;
+const roomId = (f, p) => f === 10 ? 1000 + p : f * 100 + p;
+
+let rooms = {};
+let lastBooked = [];
+
+function initRooms() {
+  rooms = {};
+  for (let f = 1; f <= FLOORS; f++) {
+    const n = roomsPerFloor(f);
+    for (let p = 1; p <= n; p++) {
+      const id = roomId(f, p);
+      rooms[id] = { id, floor: f, pos: p, status: 'available' };
+    }
+  }
+  lastBooked = [];
+}
+
+// ─── Travel time ──────────────────────────────────────────────────────
+// Between two rooms: |pos diff| + |floor diff| * 2
+function tt(a, b) {
+  return Math.abs(a.pos - b.pos) + Math.abs(a.floor - b.floor) * 2;
+}
+
+// Total travel time = from first to last room (sorted by floor then pos)
+function totalTT(list) {
+  if (list.length <= 1) return 0;
+  const s = [...list].sort((a, b) => a.floor !== b.floor ? a.floor - b.floor : a.pos - b.pos);
+  return tt(s[0], s[s.length - 1]);
+}
+
+// ─── Combinations generator ───────────────────────────────────────────
+function* combos(arr, k) {
+  if (k === 0) { yield []; return; }
+  for (let i = 0; i <= arr.length - k; i++)
+    for (const rest of combos(arr.slice(i + 1), k - 1))
+      yield [arr[i], ...rest];
+}
+
+// ─── Booking algorithm ────────────────────────────────────────────────
+function findBestRooms(n) {
+  const avail = Object.values(rooms).filter(r => r.status === 'available');
+  if (avail.length < n) return null;
+
+  // Group by floor, sorted by position
+  const byFloor = {};
+  avail.forEach(r => {
+    if (!byFloor[r.floor]) byFloor[r.floor] = [];
+    byFloor[r.floor].push(r);
+  });
+  Object.values(byFloor).forEach(a => a.sort((a, b) => a.pos - b.pos));
+
+  let best = null, bestT = Infinity;
+
+  // Priority 1: same floor — sliding window for contiguous rooms
+  for (const [fl, fr] of Object.entries(byFloor)) {
+    if (fr.length >= n) {
+      for (let i = 0; i <= fr.length - n; i++) {
+        const c = fr.slice(i, i + n);
+        const t = totalTT(c);
+        if (t < bestT || (t === bestT && best && +fl < best[0].floor)) {
+          bestT = t; best = c;
+        }
+      }
+    }
+  }
+  if (best) return best;
+
+  // Priority 2: multi-floor — enumerate all combos, pick min travel time
+  for (const c of combos(avail, n)) {
+    const t = totalTT(c);
+    if (t < bestT) { bestT = t; best = c; }
+  }
+  return best;
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────
+function book() {
+  const n = parseInt(document.getElementById('roomCount').value, 10);
+  if (!n || n < 1 || n > 5) {
+    showToast('Please enter a number between 1 and 5.', 'err');
+    return;
+  }
+  const chosen = findBestRooms(n);
+  if (!chosen) {
+    showToast('Not enough available rooms to complete booking.', 'err');
+    return;
+  }
+  lastBooked = chosen.map(r => r.id);
+  lastBooked.forEach(id => rooms[id].status = 'occupied');
+  const t = totalTT(chosen);
+  const floors = [...new Set(chosen.map(r => r.floor))].sort((a, b) => a - b);
+  const sameFloor = floors.length === 1;
+
+  showToast(`✓ Booked ${n} room${n > 1 ? 's' : ''}: ${lastBooked.join(', ')} — Travel time: ${t} min`, 'ok');
+  showBookingInfo(chosen, t, sameFloor);
+  document.getElementById('roomCount').value = '';
+  render();
+}
+
+function randomOccupancy() {
+  Object.values(rooms).forEach(r => r.status = Math.random() < 0.4 ? 'occupied' : 'available');
+  lastBooked = [];
+  hideBookingInfo();
+  showToast('Random occupancy generated.', 'info');
+  render();
+}
+
+function resetAll() {
+  initRooms();
+  hideBookingInfo();
+  document.getElementById('roomCount').value = '';
+  document.getElementById('toast').className = 'toast';
+  render();
+}
+
+// ─── UI helpers ───────────────────────────────────────────────────────
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+}
+
+function showBookingInfo(chosen, t, sameFloor) {
+  const el = document.getElementById('bookingInfo');
+  const floors = [...new Set(chosen.map(r => r.floor))].sort((a, b) => a - b);
+  el.innerHTML = `
+    <strong>Last Booking Summary</strong><br><br>
+    Rooms: <strong>${chosen.map(r => r.id).join(', ')}</strong><br>
+    Floor(s): <strong>${floors.map(f => f + 'F').join(', ')}</strong><br>
+    Type: <strong>${sameFloor ? 'Single floor' : 'Multi-floor'}</strong><br>
+    Total travel time (first → last room): <strong>${t} min</strong>
+  `;
+  el.className = 'booking-info show';
+}
+
+function hideBookingInfo() {
+  document.getElementById('bookingInfo').className = 'booking-info';
+}
+
+// ─── Render ───────────────────────────────────────────────────────────
+function render() {
+  const bld = document.getElementById('building');
+  let html = '';
+
+  for (let f = FLOORS; f >= 1; f--) {
+    const n = roomsPerFloor(f);
+    let roomsHtml = '';
+
+    for (let p = 1; p <= n; p++) {
+      const id = roomId(f, p);
+      const r = rooms[id];
+      const isBooked = lastBooked.includes(id);
+      const cls = isBooked ? 'booked' : r.status === 'occupied' ? 'occupied' : 'available';
+      roomsHtml += `
+        <div class="room ${cls}" title="Room ${id} — ${r.status}">
+          ${id}${isBooked ? '<span class="room-check">✓</span>' : ''}
+        </div>`;
+    }
+
+    // Pad floor 10 to align with other floors
+    if (f === 10) {
+      for (let i = 0; i < 3; i++) roomsHtml += `<div class="room pad"></div>`;
+    }
+
+    html += `
+      <div class="floor-row">
+        <div class="floor-meta">
+          <span class="floor-num">${f === 10 ? '10F' : f + 'F'}</span>
+          <div class="lift-col"></div>
+        </div>
+        <div class="rooms-row">${roomsHtml}</div>
+      </div>`;
+  }
+
+  bld.innerHTML = html;
+
+  // Stats
+  const total = Object.keys(rooms).length;
+  const occ = Object.values(rooms).filter(r => r.status === 'occupied').length;
+  const avail = total - occ;
+  const pct = Math.round(occ / total * 100);
+
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-avail').textContent = avail;
+  document.getElementById('s-occ').textContent = occ;
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('occBar').style.width = pct + '%';
+  document.getElementById('occ-pct-label').textContent = occ + ' / ' + total;
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────
+initRooms();
+render();
+
+// Enter key to book
+document.getElementById('roomCount').addEventListener('keydown', e => {
+  if (e.key === 'Enter') book();
+});
+</script>
+</body>
+</html>
