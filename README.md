@@ -121,7 +121,12 @@ Or just double-click `index.html` — it works instantly in any browser.
 ## 📸 Screenshots
 
 > Hotel grid showing available, occupied, and just-booked rooms with live stats.
+## 📸 Screenshots
 
+- ![Fresh and Empty Grid](screenshots/01__Fresh%20and%20Empty%20Grid%20(All%20rooms%20available).png)
+- ![4 rooms booked](screenshots/02__4%20rooms%20booked%20(Green%20colour%20booked,%20Without%20Randomizing).png)
+- ![Randomized Grid](screenshots/03__Randomized%20Grid.png)
+- ![5 rooms booked](screenshots/04__5%20rooms%20booked%20in%20Randomized%20Grid.png)
 ---
 
 ## 📌 Example Scenario
